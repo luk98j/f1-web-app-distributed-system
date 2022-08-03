@@ -58,17 +58,33 @@ const styles = {
 
 function MainPage() {
   const [checked, setChecked] = React.useState(false);
-  const [gameKey, setGameKey] = React.useState(undefined)
-  const [isShowing, setIsShowing] = React.useState(true)
+  const [gameKey, setGameKey] = React.useState("")
   const [mode, setMode] = React.useState(MODES.LOADING)
+  const [isDisable, setDisable] = React.useState(true)
 
+  React.useEffect(()=>{
+   
+    if(checked === true && gameKey.length == 36){
+      console.log(gameKey)
+      setMode(MODES.SUCCESS)
+      setDisable(false)
+    } else {
+      setMode(MODES.LOADING)
+      setDisable(true)
+    }
+  },[checked, gameKey])
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
-    setMode(MODES.SUCCESS)
   };
 
+  const handleKey = (event) =>{
+      setGameKey(event.target.value)
+  }
 
+  const moveToPageData = () =>{
+
+  }
 
   return (
     <div>
@@ -111,6 +127,7 @@ function MainPage() {
               sx={{ m: 1, width: '65ch' }} 
               style={styles.textFieldStyle} 
               inputProps={{ maxLength: 36 }}
+              onChange={handleKey}
             />
             <AnimatedCheckmark mode={mode} size={70}/>
           </center>
@@ -118,9 +135,11 @@ function MainPage() {
         <div style={styles.rectangleWithButton}>
         
           <center>
-            <Button variant="contained" color="error" size="large">
-                Start!
-            </Button>
+            <Link to={"/key/"+gameKey} style={styles.disableDecoration}>
+              <Button variant="contained" color="error" size="large" disabled={isDisable} onClick={moveToPageData}>
+                  Start!
+              </Button>
+            </Link>
           </center>
           
         </div>
