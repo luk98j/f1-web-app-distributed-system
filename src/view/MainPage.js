@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AnimatedCheckmark, { MODES } from 'react-animated-checkmark'
 
+
 const styles = {
   mainRectangle:{
     width: "90%",
@@ -63,16 +64,23 @@ function MainPage() {
   const [isDisable, setDisable] = React.useState(true)
 
   React.useEffect(()=>{
-   
-    if(checked === true && gameKey.length == 36){
+    
+
+    if(checked === true && gameKey.length === 36){
       console.log(gameKey)
       setMode(MODES.SUCCESS)
       setDisable(false)
     } else {
       setMode(MODES.LOADING)
       setDisable(true)
+      
     }
   },[checked, gameKey])
+
+  window.onpopstate = () => {
+    console.log("XD")
+    window.location.reload(true)
+  }
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
