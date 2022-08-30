@@ -1,4 +1,3 @@
-import { style } from '@mui/system';
 import * as React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,7 +9,7 @@ import EventIcon from '@mui/icons-material/Event';
 
 const styles = {
     mainRectangle:{
-      width: "85%",
+      width: "50%",
       height: "20%",
       borderRadius: "25px",
       //background: "linear-gradient(to right, #cc33ff 0%, #3333cc 100%)",
@@ -34,7 +33,7 @@ const styles = {
         // margin: "2px",
         marginTop: "2px",
         width: "42%",
-        height: "19%",
+        height: "22%",
         borderRadius: "25px",
         border: "1px solid black",
         position: "fixed",
@@ -62,7 +61,6 @@ function EventComponent(props){
         } 
         
         if(keyAndSessionId!=undefined){
-            console.log(fastestLap)
             interval = setInterval(() => 
             {
                 API.getLastFastestLap(keyAndSessionId.sessionUid, keyAndSessionId.key)
@@ -70,8 +68,6 @@ function EventComponent(props){
                         if(response.request.status === 200){
                             
                             if(fastestLap == undefined){
-                                console.log(response)
-                                
                                 succesMessage("New Fastest Lap "+ response.data.nameOfDriver + "  time: "+ response.data.time)
                             } else if (response.data.carId != fastestLap.carId && response.data.time != fastestLap.time){
                                 
@@ -88,9 +84,7 @@ function EventComponent(props){
                 API.getLastEvent(keyAndSessionId.sessionUid, keyAndSessionId.key)
                     .then((response) => {
                         if(response.request.status === 200){
-                            console.log(lastEvent.eventName)
                             if(lastEvent.eventName == undefined && lastEvent.eventValue == undefined){
-                                console.log(response.data.value)
                                 let value = response.data.value
                                 if(value !== ""){
                                     infoMessage(response.data.eventName + " "+ response.data.value)
@@ -100,7 +94,7 @@ function EventComponent(props){
                                 
                                 
                             } else if (response.data.value !== lastEvent.eventValue && response.data.eventName !== lastEvent.eventName){
-                                console.log(response.data.value)
+                                
                                 let value = response.data.value
                                 if(value !== ""){
                                     infoMessage(response.data.eventName + " "+ response.data.value)
@@ -109,7 +103,7 @@ function EventComponent(props){
                                 }
                                 //setLastEvent({eventName: response.data.eventName, value: response.data.value})
                             } else {
-                                console.log("nothing")
+                            
                             }
                             setLastEvent({eventName: response.data.eventName, value: response.data.value})
                         }
@@ -137,54 +131,6 @@ function EventComponent(props){
 
     const stopTimeout  =()=>{
         clearInterval(interval)
-    }
-
-    function functionCall (keyAndSessionId){
-            setRunOnce(false);
-            getLastFastestLapFromApi(keyAndSessionId)
-            getLastEventFromApi(keyAndSessionId)
-    }
-
-    const getLastFastestLapFromApi = (keyAndSessionId)=>{
-        
-        
-    }
-
-    function getLastEventFromApi(keyAndSessionId){
-        
-        API.getLastEvent(keyAndSessionId.sessionUid, keyAndSessionId.key)
-        .then((response) => {
-            if(response.request.status === 200){
-                console.log(lastEvent.eventName)
-                if(lastEvent.eventName == undefined && lastEvent.eventValue == undefined){
-                    console.log(response.data.value)
-                    let value = response.data.value
-                    if(value !== ""){
-                        infoMessage(response.data.eventName + " "+ response.data.value)
-                    } else {
-                        infoMessage(response.data.eventName)
-                    }
-                    
-                    
-                } else if (response.data.value !== lastEvent.eventValue && response.data.eventName !== lastEvent.eventName){
-                    console.log(response.data.value)
-                    let value = response.data.value
-                    if(value !== ""){
-                        infoMessage(response.data.eventName + " "+ response.data.value)
-                    } else {
-                        infoMessage(response.data.eventName)
-                    }
-                    //setLastEvent({eventName: response.data.eventName, value: response.data.value})
-                } else {
-                    console.log("nothing")
-                }
-                setLastEvent({eventName: response.data.eventName, value: response.data.value})
-            }
-        },
-        (error) =>{
-
-        })
-        
     }
 
     const succesMessage = (text) =>{
@@ -226,15 +172,15 @@ function EventComponent(props){
     return(
         <div>
             <div style={styles.mainRectangle}>
+            <div style={styles.eventRectangle}>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <div style={styles.eventRectangle}>
+                        
                             {lastEvent.eventName != undefined ? (
                                 <div>
                                     <center>
                                         <EventIcon></EventIcon>
-                                        <h2>
-                                            
+                                        <h3>
                                             {lastEvent.eventName.toUpperCase()}
                                             {lastEvent.value != "" || lastEvent.value != undefined ?(
                                                 <div>
@@ -247,7 +193,7 @@ function EventComponent(props){
                                                 <div>
                                                 </div>
                                             )}
-                                        </h2>
+                                        </h3>
                                     </center>
                                 </div>
                             ):(
@@ -257,18 +203,16 @@ function EventComponent(props){
                                         </center>
                                 </div>
                             )}
-                        </div>
-                    </Grid>
+                            </Grid>
                     <Grid item xs={6}>
-                    <div style={styles.fastestLapRectangle}>
-                        {fastestLap != undefined ? (
+                            {fastestLap != undefined ? (
                                     <div>
                                         <center>
                                             <SportsScoreIcon></SportsScoreIcon>
-                                            <h2>
+                                            <h3>
                                             {fastestLap.nameOfDriver}<br></br>
                                             {fastestLap.time}
-                                            </h2>
+                                            </h3>
                                         </center>
                                     </div>
                                 ):(
@@ -277,10 +221,10 @@ function EventComponent(props){
                                             <AnimatedCheckmark mode={MODES.LOADING} size={70}></AnimatedCheckmark>
                                         </center>
                                     </div>
-                                )}
-                    </div>
+                                )}                        
                     </Grid>
                 </Grid>
+                </div>
             </div>
             
             <ToastContainer

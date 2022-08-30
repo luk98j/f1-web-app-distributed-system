@@ -6,9 +6,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EventComponent from '../component/EventComponent.js';
 import MainTableComponent from '../component/MainTableComponent.js';
-
-
-
+import SessionInformation from '../component/SessionInformation.js';
+import Grid from '@mui/material/Grid';
 
 const styles = {
     mainRectangle:{
@@ -47,14 +46,14 @@ function PageWithData(props){
    const checkIfKeyExists = (key) =>{
     API.getSessionUid(key).then(
         (response) => {
-            console.log(response.data.sessionUid)
+            
             if(response.request.status === 200){
-                console.log(response.data.sessionUid)
+                
                 const keyAndSesssionUid = {
                     sessionUid: response.data.sessionUid,
                     key: response.data.key
                 }
-                console.log(keyAndSesssionUid)
+                
                 setKeyAndSessionId(keyAndSesssionUid)
                 succesMessage("FOUND KEY!")
                 setMode(MODES.SUCCESS)
@@ -99,7 +98,14 @@ function PageWithData(props){
         <div style={styles.mainRectangle}>
             {mode === MODES.SUCCESS ? (
                     <div>
-                        <EventComponent keyAndSession={keyAndSessionId}/>
+                    <Grid container spacing={2}>
+                        <Grid item xs={6}>
+                            <EventComponent keyAndSession={keyAndSessionId}/>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <SessionInformation keyAndSession={keyAndSessionId}/>
+                        </Grid>
+                    </Grid>
                         <MainTableComponent keyAndSession={keyAndSessionId}/>
                     </div>
             ):(

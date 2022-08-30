@@ -5,6 +5,7 @@ const API = {
     getLastEvent:(sessionUid, key) => AxiosHttp.get("/event/get-event?sessionUid="+sessionUid+"&key="+key),
     getLastFastestLap:(sessionUid, key) => AxiosHttp.get("/event/get-fastest-lap?sessionUid="+sessionUid+"&key="+key),
     getLapData:(sessionUid, key) => AxiosHttp.get("/lap-data/get-lap-data?sessionUid="+sessionUid+"&key="+key),
+    getSessionInfo:(sessionUid, key) => AxiosHttp.get("/session-data/get-session-information?sessionUid="+sessionUid+"&key="+key),
 
 }
 

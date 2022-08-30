@@ -10,6 +10,8 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import AnimatedCheckmark, { MODES } from 'react-animated-checkmark'
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
+import DetailInformationComponent from './DetailInformationComponent';
+import FlagIcon from '@mui/icons-material/Flag';
 
 const styles = {
     mainTable:{
@@ -24,10 +26,41 @@ const styles = {
         position: "fixed"
       },
       tableHead:{
-        background: "#bfbfbf",
+        background: "#ff4d4d",
+      },
+      whiteIcon:{
+        color: "gray",
+        
       },
       purpleIcon:{
         color: "purple"
+      },
+      greenIcon:{
+        color: "green"
+      },
+      blueIcon:{
+        color: "blue"
+      },
+      yellowIcon:{
+        color: "yellow"
+      },
+      redIcon:{
+        color: "red"
+      },
+      maxWidthColumn:{
+        maxWidth: "150px",
+      },
+      customColumn:{
+        // background: "#bfbfbf",
+        maxHeight: "5px",
+        fontSize: 13,
+        height: "5px",
+        padding: "0px",
+        margin: 0,
+      },
+      customCell:{
+        padding: 0,
+        paddingLeft: "15px"
       }
 }
 function MainTableComponent(props){
@@ -44,7 +77,7 @@ function MainTableComponent(props){
         interval = setInterval(() => 
             {
                 getDataAboutLap(keyAndSessionId.sessionUid, keyAndSessionId.key)
-            }, 1000);
+            }, 500);
             return () => {
                 clearInterval(interval);
             };
@@ -53,7 +86,7 @@ function MainTableComponent(props){
             stopTimeout()
         }
        
-    },[keyAndSessionId])
+    },[keyAndSessionId, lapData])
 
 
     const stopTimeout  =()=>{
@@ -64,7 +97,7 @@ function MainTableComponent(props){
         API.getLapData(sessionUid, key)
         .then((response) => {
             if(response.request.status === 200){
-                console.log(response.data)
+                
                 setLapData(response.data)
             }
         },
@@ -79,15 +112,19 @@ function MainTableComponent(props){
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 550 }}>
                     <Table stickyHeader>
-                    <TableHead>
+                    <TableHead >
                         <TableRow>
                             <TableCell style={styles.tableHead}>Position</TableCell>
                             <TableCell style={styles.tableHead}>Name</TableCell>
                             <TableCell style={styles.tableHead}>Current Lap Time</TableCell>
-                            <TableCell style={styles.tableHead}>Current Lap Number</TableCell>
+                            <TableCell style={styles.tableHead}>Lap Number</TableCell>
                             <TableCell style={styles.tableHead}>Last Lap Time</TableCell>
                             <TableCell style={styles.tableHead}>Status</TableCell>
-                            <TableCell style={styles.tableHead}>Fastest Lap</TableCell>
+                            <TableCell style={styles.tableHead}>Penalties</TableCell>
+                            <TableCell style={styles.tableHead}>Warnings</TableCell>                
+                            <TableCell style={styles.tableHead}></TableCell>
+                            <TableCell style={styles.tableHead}>Flag</TableCell>
+                            <TableCell style={styles.tableHead}>FL</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -95,22 +132,56 @@ function MainTableComponent(props){
                         // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         .map((row) => {
                             return (
-                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                               <TableCell>{row.carPosition}</TableCell>
-                               <TableCell>{row.nameOfDriver}</TableCell>
-                               <TableCell>{row.currentLapTime}</TableCell>
-                               <TableCell>{row.currentLapNum}</TableCell>
-                               <TableCell>{row.lastLapTime}</TableCell>
-                               <TableCell>{row.driverStatus}</TableCell>
-                               <TableCell>
-                                {row.fastestLap && (
+                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code} style={row.carPosition % 2 == 0 ?{background: "#bfbfbf",height: "5px"}:{}}
+                            sx ={styles.customColumn}>
+                               <TableCell style={styles.customCell}>{row.carPosition}</TableCell>
+                               <TableCell style={styles.customCell}>{row.nameOfDriver}</TableCell>
+                               <TableCell style={styles.customCell}>{row.currentLapTime}</TableCell>
+                               <TableCell style={styles.customCell}>{row.currentLapNum}</TableCell>
+                               <TableCell style={styles.customCell}>{row.lastLapTime}</TableCell>
+                               <TableCell style={styles.customCell}>{row.driverStatus}</TableCell>
+                               <TableCell style={styles.customCell} align={'center'}>
+                                {row.penalties != 0 || row.penalties != undefined ? (
+                                    <div>                         
+                                        {row.penalties}s
+                                    </div>
+                                ):(
+                                    <div>                         
+                                        0s
+                                    </div>
+                                )
+                                }
+                                
+                               </TableCell>
+                               <TableCell style={styles.customCell} align={'center'}>
+                                {row.warnings && (
                                     <div>
-                                        <center>
-                                        <SportsScoreIcon style={styles.purpleIcon} fontSize="large"/>
-                                        </center>
+                                        {row.warnings}                 
                                     </div>
                                 )}
                                </TableCell>
+                               <TableCell style={styles.customCell}>
+                                    <DetailInformationComponent data={row}/>
+                               </TableCell>
+                               <TableCell style={styles.customCell}>
+                                {row.vehicleFlag && (
+                                    <div>                    
+                                        {row.vehicleFlag === 'NONE' && (<FlagIcon style={styles.whiteIcon}/>)}
+                                        {row.vehicleFlag === 'GREEN' && (<FlagIcon style={styles.greenIcon}/>)}
+                                        {row.vehicleFlag === 'BLUE' && (<FlagIcon style={styles.blueIcon}/>)}
+                                        {row.vehicleFlag === 'YELLOW' && (<FlagIcon style={styles.yellowIcon}/>)}
+                                        {row.vehicleFlag === 'RED' && (<FlagIcon style={styles.redIcon}/>)}
+                                    </div>
+                                )}
+                               </TableCell>
+                               <TableCell style={styles.customCell}>
+                                {row.fastestLap && (
+                                    <div>                    
+                                        <SportsScoreIcon style={styles.purpleIcon} fontSize="large"/>
+                                    </div>
+                                )}
+                               </TableCell>
+                               
                             </TableRow>
                             );
                         })}
@@ -128,7 +199,9 @@ function MainTableComponent(props){
                 /> */}
                 </Paper>
                 ):(
+                    <center>
                     <AnimatedCheckmark mode={MODES.LOADING} size={70}></AnimatedCheckmark>
+                    </center>
                 )}
         </div>
     )

@@ -64,10 +64,7 @@ function MainPage() {
   const [isDisable, setDisable] = React.useState(true)
 
   React.useEffect(()=>{
-    
-
     if(checked === true && gameKey.length === 36){
-      console.log(gameKey)
       setMode(MODES.SUCCESS)
       setDisable(false)
     } else {
@@ -78,7 +75,6 @@ function MainPage() {
   },[checked, gameKey])
 
   window.onpopstate = () => {
-    console.log("XD")
     window.location.reload(true)
   }
 
@@ -88,10 +84,6 @@ function MainPage() {
 
   const handleKey = (event) =>{
       setGameKey(event.target.value)
-  }
-
-  const moveToPageData = () =>{
-
   }
 
   return (
@@ -144,7 +136,7 @@ function MainPage() {
         
           <center>
             <Link to={"/key/"+gameKey} style={styles.disableDecoration}>
-              <Button variant="contained" color="error" size="large" disabled={isDisable} onClick={moveToPageData}>
+              <Button variant="contained" color="error" size="large" disabled={isDisable}>
                   Start!
               </Button>
             </Link>
