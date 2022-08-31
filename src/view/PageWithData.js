@@ -41,7 +41,6 @@ function PageWithData(props){
             
             interval = setInterval(() => 
             {
-                console.log("XD")
                 checkIfKeyExists(keyId)
             }, 10000);
             return () => {
