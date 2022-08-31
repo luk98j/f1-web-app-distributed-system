@@ -119,7 +119,6 @@ function SessionInformation(props){
                 API.getSessionInfo(keyAndSessionId.sessionUid, keyAndSessionId.key)
                     .then((response) => {
                         if(response.request.status === 200){
-                            console.log(response.data)
                             setData(response.data)
                         }
                     },
