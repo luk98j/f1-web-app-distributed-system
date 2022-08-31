@@ -33,15 +33,27 @@ function PageWithData(props){
     const [mode, setMode] = React.useState(MODES.LOADING)
     const [keyAndSessionId, setKeyAndSessionId] = React.useState(undefined);
     const {keyId} = useParams();
-   
+    let interval;
 
     React.useEffect(()=>{
         if(keyAndSessionId === undefined){
             
-            checkIfKeyExists(keyId)
+            
+            interval = setInterval(() => 
+            {
+                console.log("XD")
+                checkIfKeyExists(keyId)
+            }, 10000);
+            return () => {
+                clearInterval(interval);
+            };
         }
        
     },[keyAndSessionId])
+
+    const stopTimeout  =()=>{
+        clearInterval(interval)
+    }
 
    const checkIfKeyExists = (key) =>{
     API.getSessionUid(key).then(

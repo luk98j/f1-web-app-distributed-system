@@ -74,6 +74,7 @@ function MainTableComponent(props){
         if(keyAndSessionId!=undefined){
         interval = setInterval(() => 
             {
+                console.log(lapData)
                 getDataAboutLap(keyAndSessionId.sessionUid, keyAndSessionId.key)
             }, 500);
             return () => {

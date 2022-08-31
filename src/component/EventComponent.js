@@ -121,7 +121,7 @@ function EventComponent(props){
         } else {
             stopTimeout()
         }
-    },[keyAndSessionId, lastEvent, fastestLap])
+    },[keyAndSessionId, lastEvent.eventName, fastestLap])
 
 
     window.onpopstate = () => {

@@ -332,7 +332,7 @@ function SessionInformation(props){
                                                                 </center>
                                                             </div>
                                                         )}
-                                                        {key.zoneFlag == 'YELLOw' && (
+                                                        {key.zoneFlag == 'YELLOW' && (
                                                             <div style={styles.yellowFlag}>
                                                                 <center>
                                                                     <b>{data+1}</b>

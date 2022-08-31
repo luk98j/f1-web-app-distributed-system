@@ -100,7 +100,7 @@ function MainPage() {
           </h3>
           <div style={styles.oneLiner}>
           <center>
-          <Link to="/empty.txt" target="_blank" download style={styles.disableDecoration}>
+          <Link to="/f1-client-app.exe" target="_blank" download style={styles.disableDecoration}>
               <Button variant="contained" color="error">
                 Download app
               </Button>

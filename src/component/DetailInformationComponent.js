@@ -74,7 +74,7 @@ function DetailInformationComponent(props){
         if(props.data != undefined){
             setData(props.data)
         }
-    },[data])
+    },[data, props.data])
 
     const prepareData = (lapData) =>{
         return {
@@ -133,7 +133,7 @@ function DetailInformationComponent(props){
                     <TableBody>
                     <TableRow>
                         <TableCell style={styles.chartSize}>
-                            {data.tyresAgeLaps && (
+                            {data.tyresAgeLaps >=0 && (
                                 <center><b>Tyres Age</b><br/>
                                 <b>{data.tyresAgeLaps}</b>
                                 </center>
