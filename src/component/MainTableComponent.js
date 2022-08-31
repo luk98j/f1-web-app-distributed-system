@@ -16,17 +16,14 @@ import FlagIcon from '@mui/icons-material/Flag';
 const styles = {
     mainTable:{
         width: "85%",
-        height: "40%",
-        // borderRadius: "25px",
-        // //background: "linear-gradient(to right, #cc33ff 0%, #3333cc 100%)",
+        height: "40%",    
         top: "30%",
         left: "7%",
-        // //border: "1px solid black",
-        // //padding: "20px",
         position: "fixed"
       },
       tableHead:{
         background: "#ff4d4d",
+        border: "1px solid black"
       },
       whiteIcon:{
         color: "gray",
@@ -51,16 +48,17 @@ const styles = {
         maxWidth: "150px",
       },
       customColumn:{
-        // background: "#bfbfbf",
         maxHeight: "5px",
         fontSize: 13,
         height: "5px",
         padding: "0px",
         margin: 0,
+        
       },
       customCell:{
         padding: 0,
-        paddingLeft: "15px"
+        paddingLeft: "15px",
+        border: "1px solid black"
       }
 }
 function MainTableComponent(props){
@@ -188,15 +186,6 @@ function MainTableComponent(props){
                     </TableBody>
                     </Table>
                 </TableContainer>
-                {/* <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
-                    component="div"
-                    count={rows.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                /> */}
                 </Paper>
                 ):(
                     <center>

@@ -46,7 +46,7 @@ const styles = {
         
     },
     oneLiner:{
-        // display: "flex",
+        display: "flex",
         overflow: "hidden",
         whiteSpace: "nowrap",
       },
@@ -67,36 +67,36 @@ const styles = {
     marshalZones:{
         paddingLeft:"12px",
         padding: "0px",
-        height:"15px",
-        width: "200px",
+        height:"30px",
+        width: "30px",
         overflow: "hidden",
         whiteSpace: "nowrap",
         display:"flex"
     },
     noneFlag:{
-        width:"5px",
-        height:"5px",
+        width:"25px",
+        height:"25px",
         backgroundColor: "#999999",
-        color:"#999999"
+        
     },
     greenFlag:{
-        width:"2px",
-        height:"2px",
+        width:"25px",
+        height:"25px",
         backgroundColor: "green"
     },
     blueFlag:{
-        width:"2px",
-        height:"2px",
+        width:"25px",
+        height:"25px",
         backgroundColor: "blue"
     },
     yellowFlag:{
-        width:"2px",
-        height:"2px",
+        width:"25px",
+        height:"25px",
         backgroundColor: "yellow"
     },
     redFlag:{
-        width:"2px",
-        height:"2px",
+        width:"25px",
+        height:"25px",
         backgroundColor: "red"
     },
     
@@ -313,25 +313,40 @@ function SessionInformation(props){
                                                     <div style={styles.marshalZones}>
                                                         {key.zoneFlag == 'NONE' && (
                                                             <div style={styles.noneFlag}>
+                                                                <center>
+                                                                    <b>{data+1}</b>
+                                                                </center>
                                                             </div>
                                                         )}
                                                         {key.zoneFlag == 'GREEN' && (
                                                             <div style={styles.greenFlag}>
+                                                                <center>
+                                                                    <b>{data+1}</b>
+                                                                </center>
                                                             </div>
                                                         )}
                                                         {key.zoneFlag == 'BLUE' && (
                                                             <div style={styles.blueFlag}>
+                                                                <center>
+                                                                    <b>{data+1}</b>
+                                                                </center>
                                                             </div>
                                                         )}
-                                                        {key.zoneFlag == 'YELLOW' && (
+                                                        {key.zoneFlag == 'YELLOw' && (
                                                             <div style={styles.yellowFlag}>
+                                                                <center>
+                                                                    <b>{data+1}</b>
+                                                                </center>
                                                             </div>
                                                         )}
                                                         {key.zoneFlag == 'RED' && (
                                                             <div style={styles.redFlag}>
+                                                                <center>
+                                                                    <b>{data+1}</b>
+                                                                </center>
                                                             </div>
                                                         )}
-                                                        {data+1}
+                                                        
                                                         
                                                     </div>
                                                 )
