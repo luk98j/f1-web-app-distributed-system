@@ -37,7 +37,7 @@ function PageWithData(props){
 
     React.useEffect(()=>{
         if(keyAndSessionId === undefined){
-            
+            checkIfKeyExists(keyId)
             
             interval = setInterval(() => 
             {
