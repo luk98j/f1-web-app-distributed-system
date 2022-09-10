@@ -90,8 +90,8 @@ function DetailInformationComponent(props){
               {
                 data: [lapData, 100-lapData],
                 backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'gray',
+                  'red',
+                  '#E9E9E9',
                 ],
                 borderWidth: 1,
               },
